@@ -7,26 +7,24 @@
 class vertex
 {
 private:
-    std::unordered_set<std::string> _neighbors;
+    std::string _name {};
+    std::unordered_set<std::string> _neighbors {};
 
 public:
-    vertex() = default;
+    vertex() = delete;
+    vertex(const std::string& name);
     ~vertex() = default;
     vertex(const vertex &v);
     vertex& operator=(const vertex &v);
     vertex(vertex &&v);
     vertex& operator=(vertex &&v);
 
-    void insertNeighbor(std::string n);
-    void eraseNeighbor(std::string n);
+    void addNeighbor(std::string n);
+    void removeNeighbor(std::string n);
+    bool hasNeighbor(std::string n);
     std::unordered_set<std::string> getNeighbors();
 
-    void printNeighbors()
-    {
-        for (const auto& elem : _neighbors)
-            std::cout << elem << " ";
-        std::cout << std::endl;
-    }
+    void printNeighbors();
 };
 
 #endif

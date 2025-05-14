@@ -2,11 +2,11 @@
 
 int main(int argc, char const *argv[])
 {
-    vertex v1;
+    vertex v1("A");
     
-    v1.insertNeighbor("A");
-    v1.insertNeighbor("B");
-    v1.insertNeighbor("C");
+    v1.addNeighbor("B");
+    v1.addNeighbor("C");
+    v1.addNeighbor("D");
 
     vertex v2 = v1;
 

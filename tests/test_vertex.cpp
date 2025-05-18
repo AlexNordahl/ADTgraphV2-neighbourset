@@ -1,2 +1,2 @@
 #include <gtest/gtest.h>
-#include "../vertex.hpp"
+#include "../headers/vertex.hpp"

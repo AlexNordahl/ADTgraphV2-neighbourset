@@ -9,18 +9,19 @@ class graph
 {
 private:
     std::unordered_set<vertex> _vertexes;
+    
 public:
     graph() = default;
     ~graph() = default;
     graph(const graph &rhs) = default;
-    graph& operator=(const graph &rhs);
-    graph(graph &&rhs);
-    graph& operator=(graph &&rhs);
+    graph& operator=(const graph &rhs) = default;
+    graph(graph &&rhs) = default;
+    graph& operator=(graph &&rhs) = default;
 
-    void addVertex(std::string x);
-    void removeVertex(std::string x);
+    void addVertex(std::string v);
+    void removeVertex(std::string v);
     void setVertexValue(std::string x, int v);
-    int getVertexValue(std::string x) const;
+    int getVertexValue(std::string x);
 
     void addEdge(std::string x, std::string y);
     void addEdge(std::string x, std::string y, int v);
@@ -31,11 +32,7 @@ public:
     bool adjacent(std::string x, std::string y) const;
     std::vector<std::string> neighbours(std::string x) const;
     
-    void printMatrix();
     void printVertexes();
-    std::string getVertexes();
-    std::string getEdges();
-    void createDotFile();
 };
 
 #endif

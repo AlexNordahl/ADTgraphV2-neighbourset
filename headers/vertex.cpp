@@ -5,38 +5,10 @@ vertex::vertex(const std::string &name)
     _name = name;
 }
 
-vertex::vertex(const vertex &rhs)
+vertex::vertex(const std::string &name, const int value)
 {
-    _name = rhs._name;
-    _neighbors = rhs._neighbors;
-}
-
-vertex &vertex::operator=(const vertex &rhs)
-{
-    if (this != &rhs)
-    {
-        _name = rhs._name;
-        _neighbors = rhs._neighbors;
-    }
-    
-    return *this;
-}
-
-vertex::vertex(vertex &&rhs)
-{
-    _name = std::move(rhs._name);
-    _neighbors = std::move(rhs._neighbors);
-}
-
-vertex &vertex::operator=(vertex &&rhs)
-{
-    if (this == &rhs)
-        return *this;
-
-    _name = std::move(rhs._name);
-    _neighbors = std::move(rhs._neighbors);
-
-    return *this;
+    _name = name;
+    _value = value;
 }
 
 bool vertex::operator==(const vertex &v) const
@@ -57,6 +29,11 @@ void vertex::removeNeighbor(std::string n)
     _neighbors.erase(n);
 }
 
+int vertex::getValue() const
+{
+    return _value;
+}
+
 bool vertex::hasNeighbor(std::string n) const
 {
     return _neighbors.contains(n);
@@ -72,9 +49,24 @@ std::unordered_set<std::string> vertex::getNeighbors() const
     return _neighbors;
 }
 
+std::string vertex::strNeighbors() const
+{
+    std::string result = "{ ";
+    for (const auto& mem : _neighbors)
+    {
+        result += mem + " ";
+    }
+    result += "}";
+    
+    return result;
+}
+
 void vertex::printNeighbors() const
 {
+    std::cout << "{ ";
     for (const auto& elem : _neighbors)
+    {
         std::cout << elem << " ";
-    std::cout << std::endl;
+    }
+    std::cout << " }" << std::endl;
 }

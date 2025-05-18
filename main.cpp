@@ -1,4 +1,4 @@
-#include "graph.hpp"
+#include "headers/graph.hpp"
 
 int main(int argc, char const *argv[])
 {

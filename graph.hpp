@@ -8,11 +8,11 @@
 class graph
 {
 private:
-    std::vector<vertex> _vertexes;
+    std::unordered_set<vertex> _vertexes;
 public:
-    graph();
-    ~graph();
-    graph(const graph &rhs);
+    graph() = default;
+    ~graph() = default;
+    graph(const graph &rhs) = default;
     graph& operator=(const graph &rhs);
     graph(graph &&rhs);
     graph& operator=(graph &&rhs);
@@ -38,4 +38,4 @@ public:
     void createDotFile();
 };
 
-#endif GRAPH_HPP
+#endif

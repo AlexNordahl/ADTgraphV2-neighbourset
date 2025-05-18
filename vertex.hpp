@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unordered_set>
+#include <functional>
 
 class vertex
 {
@@ -18,13 +19,30 @@ public:
     vertex& operator=(const vertex &v);
     vertex(vertex &&v);
     vertex& operator=(vertex &&v);
+    
+    bool operator==(const vertex &v) const;
 
     void addNeighbor(std::string n);
     void removeNeighbor(std::string n);
-    bool hasNeighbor(std::string n);
-    std::unordered_set<std::string> getNeighbors();
+    bool hasNeighbor(std::string n) const;
+    std::string getName() const;
+    std::unordered_set<std::string> getNeighbors() const;
 
-    void printNeighbors();
+    void printNeighbors() const;
 };
+
+namespace std 
+{
+    template<>
+    struct hash<vertex> 
+    {
+        std::size_t operator()(const vertex& v) const 
+        {
+            std::cout << std::hash<std::string>()(v.getName()) << std::endl;
+            return std::hash<std::string>()(v.getName());
+        }
+    };
+}
+
 
 #endif

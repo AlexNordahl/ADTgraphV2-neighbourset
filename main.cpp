@@ -1,16 +1,11 @@
-#include "vertex.hpp"
+#include "graph.hpp"
 
 int main(int argc, char const *argv[])
 {
-    vertex v1("A");
-    
-    v1.addNeighbor("B");
-    v1.addNeighbor("C");
-    v1.addNeighbor("D");
+    graph g;
 
-    vertex v2 = v1;
-
-    v2.printNeighbors();
+    g.addVertex("A");
+    g.addVertex("A");
 
     return 0;
 }

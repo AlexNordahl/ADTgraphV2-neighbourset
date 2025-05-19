@@ -21,12 +21,17 @@ void vertex::addNeighbor(std::string n)
     if (_name == n)
         throw std::invalid_argument("Error: vertex cannot be neighbor to itself");
 
-    _neighbors.insert(n);
+    _neighbors[n] = DEFAULT_EDGE_VALUE;
 }
 
 void vertex::removeNeighbor(std::string n)
 {
-    _neighbors.erase(n);
+    _neighbors[n] = DEFAULT_EDGE_VALUE;
+}
+
+void vertex::setValue(const int v)
+{
+    _value = v;
 }
 
 int vertex::getValue() const
@@ -34,9 +39,9 @@ int vertex::getValue() const
     return _value;
 }
 
-bool vertex::hasNeighbor(std::string n) const
+void vertex::setEdgeValue(std::string name, const int v)
 {
-    return _neighbors.contains(n);
+    _neighbors[name] = v;
 }
 
 std::string vertex::getName() const
@@ -44,29 +49,17 @@ std::string vertex::getName() const
     return _name;
 }
 
-std::unordered_set<std::string> vertex::getNeighbors() const
-{
-    return _neighbors;
-}
-
-std::string vertex::strNeighbors() const
+std::string vertex::strNeighbors()
 {
     std::string result = "{ ";
-    for (const auto& mem : _neighbors)
+    for (auto it = _neighbors.begin(); it != _neighbors.end(); ++it)
     {
-        result += mem + " ";
+        result += it->first + ": " + std::to_string(it->second);
+        if (std::next(it) != _neighbors.end()) {
+            result += ", ";
+        }
     }
-    result += "}";
+    result += " }";
     
     return result;
-}
-
-void vertex::printNeighbors() const
-{
-    std::cout << "{ ";
-    for (const auto& elem : _neighbors)
-    {
-        std::cout << elem << " ";
-    }
-    std::cout << " }" << std::endl;
 }

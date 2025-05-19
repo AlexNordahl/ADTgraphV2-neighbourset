@@ -6,16 +6,17 @@
 #include <functional>
 
 #define DEFAULT_VERTEX_VALUE 1
+#define DEFAULT_EDGE_VALUE 1
 
 class vertex
 {
 private:
-    std::unordered_set<std::string> _neighbors {};
+    std::unordered_map<std::string, int> _neighbors {};
     std::string _name {};
     int _value {DEFAULT_VERTEX_VALUE};
     
 public:
-    vertex() = delete;
+    vertex() = default;
     vertex(const std::string& name);
     vertex(const std::string& name, const int value);
     ~vertex() = default;
@@ -28,13 +29,12 @@ public:
 
     void addNeighbor(std::string n);
     void removeNeighbor(std::string n);
+    void setValue(const int v);
     int getValue() const;
-    bool hasNeighbor(std::string n) const;
+    void setEdgeValue(std::string name, const int v);
+    
     std::string getName() const;
-    std::unordered_set<std::string> getNeighbors() const;
-
-    std::string strNeighbors() const;
-    void printNeighbors() const;
+    std::string strNeighbors();
 };
 
 namespace std 
@@ -48,6 +48,5 @@ namespace std
         }
     };
 }
-
 
 #endif

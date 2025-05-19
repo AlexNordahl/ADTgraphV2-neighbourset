@@ -26,7 +26,10 @@ void vertex::addNeighbor(std::string n)
 
 void vertex::removeNeighbor(std::string n)
 {
-    _neighbors[n] = DEFAULT_EDGE_VALUE;
+    if (!_neighbors.contains(n))
+        throw std::invalid_argument("Error: neighbor does not exist");
+
+    _neighbors.erase(n);
 }
 
 void vertex::setValue(const int v)

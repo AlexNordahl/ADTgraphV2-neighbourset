@@ -27,15 +27,18 @@ public:
     
     bool operator==(const vertex &v) const;
 
-    bool isEmpty();
+    bool empty();
     bool hasNeighbors();
+    bool hasNeighbor(std::string n);
     void addNeighbor(std::string n);
     void removeNeighbor(std::string n);
     void setValue(const int v);
     int getValue() const;
     void setEdgeValue(std::string name, const int v);
+    int getEdgeValue(std::string name);
     
     std::string getName() const;
+    std::unordered_map<std::string, int> getNeighbors();
     std::string strNeighbors();
 };
 

@@ -28,9 +28,10 @@ public:
     void setEdgeValue(std::string name_x, std::string name_y, int value);
     int getEdgeValue(std::string name_x, std::string name_y);
 
-    bool adjacent(std::string name_x, std::string y) const;
-    std::vector<std::string> neighbours(std::string x) const;
+    bool adjacent(std::string name_x, std::string y);
+    std::vector<std::string> neighbors(std::string x);
     
+    bool empty();
     void printVertexes();
 };
 

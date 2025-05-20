@@ -16,6 +16,16 @@ bool vertex::operator==(const vertex &v) const
     return _name == v._name;
 }
 
+bool vertex::isEmpty()
+{
+    return _name == "" and _value == DEFAULT_VERTEX_VALUE and _neighbors.empty();
+}
+
+bool vertex::hasNeighbors()
+{
+    return !_neighbors.empty();
+}
+
 void vertex::addNeighbor(std::string n)
 {
     if (_name == n)

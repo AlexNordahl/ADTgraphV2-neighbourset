@@ -27,6 +27,8 @@ public:
     
     bool operator==(const vertex &v) const;
 
+    bool isEmpty();
+    bool hasNeighbors();
     void addNeighbor(std::string n);
     void removeNeighbor(std::string n);
     void setValue(const int v);

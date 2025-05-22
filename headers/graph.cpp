@@ -39,7 +39,6 @@ void graph::addEdge(std::string name_x, std::string name_y)
         throw std::invalid_argument("Error: vertex doesn't exist");
 
     _vertexes[name_x].addNeighbor(name_y);
-    _vertexes[name_y].addNeighbor(name_x);
 }
 
 void graph::removeEdge(std::string name_x, std::string name_y)
@@ -48,7 +47,6 @@ void graph::removeEdge(std::string name_x, std::string name_y)
         throw std::invalid_argument("Error: vertex doesn't exist");
 
     _vertexes[name_x].removeNeighbor(name_y);
-    _vertexes[name_y].removeNeighbor(name_x);
 }
 
 void graph::setEdgeValue(std::string name_x, std::string name_y, int value)
@@ -60,9 +58,6 @@ void graph::setEdgeValue(std::string name_x, std::string name_y, int value)
     {
         if (pair.first == name_x)
             pair.second.setEdgeValue(name_y, value);
-
-        if (pair.first == name_y)
-            pair.second.setEdgeValue(name_x, value);
     }
 }
 
@@ -76,7 +71,7 @@ int graph::getEdgeValue(std::string name_x, std::string name_y)
 
 bool graph::adjacent(std::string name_x, std::string name_y)
 {
-    return _vertexes[name_x].hasNeighbor(name_y) and _vertexes[name_y].hasNeighbor(name_x);
+    return _vertexes[name_x].hasNeighbor(name_y) or _vertexes[name_y].hasNeighbor(name_x);
 }
 
 std::vector<std::string> graph::neighbors(std::string x)
@@ -103,4 +98,27 @@ void graph::printVertexes()
     {
         std::cout << name_vertex_pair.first << ": " << name_vertex_pair.second.strNeighbors() << std::endl;
     }
+}
+
+void graph::createDotFile(int size, int dpi)
+{
+    std::unordered_set<std::string> vertexes;
+
+    std::ofstream dotFile("graph.dot");
+
+    dotFile << "digraph {\n";
+    dotFile << "\tsize=\"" << size << "," << size << "\";\n";
+    dotFile << "\tdpi=" << dpi << ";\n";
+
+    for (auto& pair : _vertexes)
+    {
+        for (auto& n : pair.second.getNeighbors())
+        {
+            dotFile << "\t" << pair.first << " -> " << n.first << " [label = " << n.second << "];\n";
+        }
+    }
+    
+    dotFile << "}";
+
+    dotFile.close();
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "vertex.hpp"
 
 class graph
@@ -33,6 +34,7 @@ public:
     
     bool empty();
     void printVertexes();
+    void createDotFile(int size = 300, int dpi = 200);
 };
 
 #endif

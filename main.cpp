@@ -6,39 +6,18 @@
 
 int main() 
 {
-    std::ofstream outfile("vertex_times.txt");
-    
-    const int max_vertices = 10000;
-    const int step = 10;
-    const int repeats = 50;
+    graph g;
 
-    for (int current_size = step; current_size <= max_vertices; current_size += step) 
-    {
-        double total_time_us = 0.0;
+    g.addVertex("A");
+    g.addVertex("B");
+    g.addVertex("C");
+    g.addVertex("D");
 
-        for (int i = 0; i < repeats; ++i) {
-            graph g;
+    g.addEdge("A", "B");
+    g.addEdge("B", "C");
+    g.addEdge("B", "D");
 
-            for (int j = 1; j < current_size; ++j) 
-            {
-                g.addVertex("V" + std::to_string(j));
-            }
-
-            auto start = std::chrono::high_resolution_clock::now();
-
-            g.addVertex("V" + std::to_string(current_size));
-
-            auto end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double, std::micro> duration = end - start;
-
-            total_time_us += duration.count();
-        }
-
-        double avg_time = total_time_us / repeats;
-        outfile << current_size << " " << avg_time << "\n";
-    }
-
-    outfile.close();
+    g.createDotFile();
 
     return 0;
 }

@@ -38,7 +38,7 @@ TEST(Edges_add, Equals)
     g.addEdge("A", "B");
     g.addEdge("B", "C");
 
-    std::vector<std::string> expected {"C", "A"};
+    std::vector<std::string> expected {"C"};
     EXPECT_EQ(g.neighbors("B"), expected);
 }
 
@@ -85,6 +85,6 @@ TEST(Neighbors, Equals)
     g.addEdge("B", "C");
     g.addEdge("B", "D");
 
-    std::vector<std::string> temp {"D", "C", "A"};
+    std::vector<std::string> temp {"D", "C"};
     EXPECT_EQ(g.neighbors("B"), temp);
 }

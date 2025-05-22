@@ -7,6 +7,7 @@
 
 #define DEFAULT_VERTEX_VALUE 1
 #define DEFAULT_EDGE_VALUE 1
+#define DEFAULT_COLOR "white"
 
 class vertex
 {

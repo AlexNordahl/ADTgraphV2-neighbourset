@@ -17,6 +17,7 @@ Implemented functionalities:
 - **getEdgeValue** get edge value
 - **adjacent** returns true if two nodes have edge
 - **neighbors** returns vector of all node neighbors
+- **createdDotFile** creates file name mygraph.dot, size and dpi can be specified
 
 ## Getting Started
 
@@ -24,7 +25,8 @@ Implemented functionalities:
 
 ### Dependencies
 
-* Doesn't require any external libraries except for **gtest** for tests.
+* Library doesn't require any external libraries and tools.
+* Makefile commands require **gtest**, **dot** and **feh**.
 
 ### Executing program
 To compile main.cpp graph.cpp and vertex.cpp file to main executable
@@ -42,6 +44,10 @@ make test_vertex
 Compile and run test_graph.cpp
 ```
 make test_graph
+```
+compiles program and opens png file using feh
+```
+make plot
 ```
 ## Authors
 

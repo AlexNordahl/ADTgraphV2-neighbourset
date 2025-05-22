@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <initializer_list>
 #include "vertex.hpp"
 
 class graph
@@ -13,6 +14,7 @@ private:
     
 public:
     graph() = default;
+    graph(std::initializer_list<std::string> list);
     ~graph() = default;
     graph(const graph &rhs) = default;
     graph& operator=(const graph &rhs) = default;
@@ -34,7 +36,8 @@ public:
     
     bool empty();
     void printVertexes();
-    void createDotFile(int size = 300, int dpi = 200);
+    void createDotFile(int size = 300, int dpi = 200, bool weighted = true);
+    void addEdges(std::string name_x, std::initializer_list<std::string> list);
 };
 
 #endif

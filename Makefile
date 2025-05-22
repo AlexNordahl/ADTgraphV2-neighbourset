@@ -25,3 +25,10 @@ plot:
 	./main; \
 	dot -Tpng graph.dot -o mygraph.png; \
 	feh mygraph.png
+
+problemone:
+	cd problem1; \
+	g++ -std=c++20 main.cpp ../headers/graph.cpp ../headers/vertex.cpp -o main;\
+	./main; \
+	dot -Tpng graph.dot -o mygraph.png; \
+	feh mygraph.png

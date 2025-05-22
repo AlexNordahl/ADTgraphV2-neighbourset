@@ -1,5 +1,11 @@
 #include "graph.hpp"
 
+graph::graph(std::initializer_list<std::string> list)
+{
+    for (const std::string& name : list)
+        addVertex(name);
+}
+
 void graph::addVertex(std::string name)
 {
     if (_vertexes.contains(name))
@@ -100,10 +106,9 @@ void graph::printVertexes()
     }
 }
 
-void graph::createDotFile(int size, int dpi)
+void graph::createDotFile(int size, int dpi, bool weighted)
 {
     std::unordered_set<std::string> vertexes;
-
     std::ofstream dotFile("graph.dot");
 
     dotFile << "digraph {\n";
@@ -114,11 +119,23 @@ void graph::createDotFile(int size, int dpi)
     {
         for (auto& n : pair.second.getNeighbors())
         {
-            dotFile << "\t" << pair.first << " -> " << n.first << " [label = " << n.second << "];\n";
+            dotFile << "\t" << pair.first << " -> " << n.first;
+            if (weighted == true)
+                dotFile << " [label = " << n.second << "]";
+            dotFile << ";\n";
         }
     }
     
     dotFile << "}";
 
     dotFile.close();
+}
+
+void graph::addEdges(std::string name_x, std::initializer_list<std::string> list)
+{
+    for (auto& name : list)
+    {
+        addEdge(name_x, name);
+    }
+    
 }

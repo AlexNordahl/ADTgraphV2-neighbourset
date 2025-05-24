@@ -6,7 +6,11 @@ make:
 clean:
 	rm -f main; \
 	rm -f graph.dot; \
-	rm -f mygraph.png
+	rm -f mygraph.png;
+	cd streetIntersectionProblem; \
+	rm -f main; \
+	rm -f graph.dot; \
+	rm -f mygraph.png;
 
 test_vertex:
 	cd tests; \
@@ -26,8 +30,8 @@ plot:
 	dot -Tpng graph.dot -o mygraph.png; \
 	feh mygraph.png
 
-problemone:
-	cd problem1; \
+problem1:
+	cd streetIntersectionProblem; \
 	g++ -std=c++20 main.cpp ../headers/graph.cpp ../headers/vertex.cpp -o main;\
 	./main; \
 	dot -Tpng graph.dot -o mygraph.png; \

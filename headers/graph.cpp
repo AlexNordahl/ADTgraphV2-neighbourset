@@ -108,26 +108,39 @@ void graph::printVertexes()
 
 void graph::createDotFile(int size, int dpi, bool weighted)
 {
-    std::unordered_set<std::string> vertexes;
     std::ofstream dotFile("graph.dot");
 
     dotFile << "digraph {\n";
     dotFile << "\tsize=\"" << size << "," << size << "\";\n";
     dotFile << "\tdpi=" << dpi << ";\n";
 
+    std::set<std::pair<std::string, std::string>> addedEdges;
+
     for (auto& pair : _vertexes)
     {
         for (auto& n : pair.second.getNeighbors())
         {
-            dotFile << "\t" << pair.first << " -> " << n.first;
-            if (weighted == true)
-                dotFile << " [label = " << n.second << "]";
-            dotFile << ";\n";
+            std::string from = pair.first;
+            std::string to = n.first;
+
+            addedEdges.insert({from, to});
         }
     }
-    
-    dotFile << "}";
 
+    for (const auto& pair : addedEdges)
+    {
+        if (addedEdges.contains({pair.second, pair.first}))
+        {
+            dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\" [dir=\"both\"];\n";
+            addedEdges.erase({pair.second, pair.first});
+            continue;
+        }
+        
+        dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\";\n";
+    }
+
+    dotFile << "}";
+    
     dotFile.close();
 }
 

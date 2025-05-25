@@ -1,38 +1,49 @@
-# Makefile
+CXX = g++
+CXXFLAGS = -std=c++20 -Wall -Wextra
+LDLIBS = -lgtest -lgtest_main -pthread
+IMGVIEWER ?= feh
 
-make:
-	g++ -std=c++20 main.cpp headers/graph.cpp headers/vertex.cpp -o main
+# --- Default build ---
+main: main.o headers/graph.o headers/vertex.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
+# --- Rules ---
+headers/graph.o: headers/graph.cpp headers/graph.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+headers/vertex.o: headers/vertex.cpp headers/vertex.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+main.o: main.cpp headers/graph.hpp headers/vertex.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# --- Cleaning ---
 clean:
-	rm -f main; \
-	rm -f graph.dot; \
-	rm -f mygraph.png;
-	cd streetIntersectionProblem; \
-	rm -f main; \
-	rm -f graph.dot; \
-	rm -f mygraph.png;
+	rm -f main *.o graph.dot mygraph.png
+	$(MAKE) -C streetIntersectionProblem clean
+	$(MAKE) -C theKnightsTourProblem clean
 
+# --- Run and plot ---
+plot: main
+	./main
+	dot -Tpng graph.dot -o mygraph.png
+	$(IMGVIEWER) mygraph.png
+
+# --- Unit tests ---
 test_vertex:
-	cd tests; \
-	g++ -std=c++20 test_vertex.cpp ../headers/vertex.cpp -lgtest -lgtest_main -pthread -o test_vertex; \
-	./test_vertex; \
+	$(CXX) $(CXXFLAGS) tests/test_vertex.cpp headers/vertex.cpp -o test_vertex $(LDLIBS)
+	./test_vertex
 	rm -f test_vertex
 
 test_graph:
-	cd tests; \
-	g++ -std=c++20 test_graph.cpp ../headers/vertex.cpp ../headers/graph.cpp -lgtest -lgtest_main -pthread -o test_graph; \
-	./test_graph; \
+	$(CXX) $(CXXFLAGS) tests/test_graph.cpp headers/graph.cpp headers/vertex.cpp -o test_graph $(LDLIBS)
+	./test_graph
 	rm -f test_graph
 
-plot:
-	make; \
-	./main; \
-	dot -Tpng graph.dot -o mygraph.png; \
-	feh mygraph.png
+# --- Subprojects ---
+knightproblem:
+	$(MAKE) -C theKnightsTourProblem plot
 
-problem1:
-	cd streetIntersectionProblem; \
-	g++ -std=c++20 main.cpp ../headers/graph.cpp ../headers/vertex.cpp -o main;\
-	./main; \
-	dot -Tpng graph.dot -o mygraph.png; \
-	feh mygraph.png
+
+streetproblem:
+	$(MAKE) -C streetIntersectionProblem plot

@@ -13,12 +13,9 @@ int main()
     g.addVertex("C");
     g.addVertex("D");
 
-    g.addEdge("A", "B");
-    g.addEdge("B", "A");
-    g.addEdge("B", "D");
-    g.addEdge("D", "B");
+    g.addEdges("A", {"B", "C"});
 
-    g.createDotFile();
+    g.createDotFile(false);
 
     return 0;
 }

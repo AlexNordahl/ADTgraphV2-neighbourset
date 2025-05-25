@@ -37,8 +37,10 @@ public:
     
     bool empty();
     void printVertexes();
-    void createDotFile(int size = 300, int dpi = 200, bool weighted = true);
+    void createDotFile(int size = 300, int dpi = 200, bool weighted = false);
+    void createDotFile(bool weighted);
     void addEdges(std::string name_x, std::initializer_list<std::string> list);
+    std::vector<std::string> getAllVertices();
 };
 
 #endif

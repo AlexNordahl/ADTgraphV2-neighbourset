@@ -38,7 +38,6 @@ int graph::getVertexValue(std::string name)
     return _vertexes[name].getValue();
 }
 
-
 void graph::addEdge(std::string name_x, std::string name_y)
 {
     if (!_vertexes.contains(name_x) or !_vertexes.contains(name_y))
@@ -122,26 +121,39 @@ void graph::createDotFile(int size, int dpi, bool weighted)
         {
             std::string from = pair.first;
             std::string to = n.first;
-
             addedEdges.insert({from, to});
+            continue;
         }
+
+        dotFile << "\t\"" << pair.first << "\";\n"; 
     }
 
     for (const auto& pair : addedEdges)
     {
         if (addedEdges.contains({pair.second, pair.first}))
         {
-            dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\" [dir=\"both\"];\n";
+            dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\" [dir=\"both\"";
+            if (weighted)
+                dotFile << ", label=" << getEdgeValue(pair.first, pair.second);
+            dotFile << "];\n";
             addedEdges.erase({pair.second, pair.first});
             continue;
         }
         
-        dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\";\n";
+        dotFile << "\t\"" << pair.first << "\" -> \"" << pair.second << "\"";
+        if (weighted)
+            dotFile << " [label=" << getEdgeValue(pair.first, pair.second) << "]";
+        dotFile << ";\n";
     }
 
     dotFile << "}";
     
     dotFile.close();
+}
+
+void graph::createDotFile(bool weighted)
+{
+    createDotFile(300, 200, weighted);
 }
 
 void graph::addEdges(std::string name_x, std::initializer_list<std::string> list)
@@ -151,4 +163,16 @@ void graph::addEdges(std::string name_x, std::initializer_list<std::string> list
         addEdge(name_x, name);
     }
     
+}
+
+std::vector<std::string> graph::getAllVertices()
+{
+    std::vector<std::string> result;
+
+    for (const auto& pair : _vertexes)
+    {
+        result.push_back(pair.first);
+    }
+
+    return result;
 }

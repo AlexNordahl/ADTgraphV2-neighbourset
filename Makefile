@@ -19,7 +19,7 @@ main.o: main.cpp headers/graph.hpp headers/vertex.hpp
 
 # --- Cleaning ---
 clean:
-	rm -f main *.o headers/*.o graph.dot mygraph.png
+	rm -f main $(wildcard *.o) $(wildcard headers/*.o) graph.dot mygraph.png
 	$(MAKE) -C problems/streetIntersectionProblem clean
 	$(MAKE) -C problems/theKnightsTourProblem clean
 

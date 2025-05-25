@@ -19,7 +19,7 @@ main.o: main.cpp ../../headers/graph.hpp ../../headers/vertex.hpp
 
 # --- Cleaning ---
 clean:
-	rm -f main *.o graph.dot mygraph.png
+	rm -f main $(wildcard *.o) graph.dot mygraph.png
 
 # --- Run and plot ---
 plot: main

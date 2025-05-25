@@ -1,4 +1,4 @@
-#include "../headers/graph.hpp"
+#include "../../headers/graph.hpp"
 
 int main()
 {

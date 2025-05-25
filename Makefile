@@ -19,9 +19,9 @@ main.o: main.cpp headers/graph.hpp headers/vertex.hpp
 
 # --- Cleaning ---
 clean:
-	rm -f main *.o graph.dot mygraph.png
-	$(MAKE) -C streetIntersectionProblem clean
-	$(MAKE) -C theKnightsTourProblem clean
+	rm -f main *.o headers/*.o graph.dot mygraph.png
+	$(MAKE) -C problems/streetIntersectionProblem clean
+	$(MAKE) -C problems/theKnightsTourProblem clean
 
 # --- Run and plot ---
 plot: main
@@ -42,8 +42,8 @@ test_graph:
 
 # --- Subprojects ---
 knightproblem:
-	$(MAKE) -C theKnightsTourProblem plot
+	$(MAKE) -C problems/theKnightsTourProblem plot
 
 
 streetproblem:
-	$(MAKE) -C streetIntersectionProblem plot
+	$(MAKE) -C problems/streetIntersectionProblem plot

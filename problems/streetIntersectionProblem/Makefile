@@ -4,17 +4,17 @@ LDLIBS = -lgtest -lgtest_main -pthread
 IMGVIEWER ?= feh
 
 # --- Default build ---
-main: main.o ../headers/graph.o ../headers/vertex.o
+main: main.o ../../headers/graph.o ../../headers/vertex.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 # --- Rules ---
-headers/graph.o: ../headers/graph.cpp ../headers/graph.hpp
+headers/graph.o: ../../headers/graph.cpp ../../headers/graph.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-headers/vertex.o: ../headers/vertex.cpp ../headers/vertex.hpp
+headers/vertex.o: ../../headers/vertex.cpp ../../headers/vertex.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-main.o: main.cpp ../headers/graph.hpp ../headers/vertex.hpp
+main.o: main.cpp ../../headers/graph.hpp ../../headers/vertex.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # --- Cleaning ---

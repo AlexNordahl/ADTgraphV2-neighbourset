@@ -1,15 +1,12 @@
-#include "../headers/graph.hpp"
+#include "../../headers/graph.hpp"
 
 int countUnvisitedNeighbors(graph& g, const std::string& vertex, const std::unordered_set<std::string>& visited) 
 {
     int count = 0;
     for (const auto& neighbor : g.neighbors(vertex)) 
-    {
         if (visited.find(neighbor) == visited.end()) 
-        {
             count++;
-        }
-    }
+
     return count;
 }
 
@@ -19,30 +16,30 @@ std::vector<std::string> findKnightTour(graph& g, const std::string& start)
     std::vector<std::string> path;
     int totalVertices = g.getAllVertices().size();
 
-    std::function<bool(const std::string&)> dfs = [&](const std::string& current) -> bool {
+    std::function<bool(const std::string&)> dfs = [&](const std::string& current) -> bool 
+    {
         visited.insert(current);
         path.push_back(current);
 
-        if (path.size() == totalVertices) {
+        if (path.size() == totalVertices) 
+        {
             return true;
         }
 
         std::vector<std::string> neighbors;
         for (const auto& neighbor : g.neighbors(current)) 
-        {
             if (visited.find(neighbor) == visited.end()) 
-            {
                 neighbors.push_back(neighbor);
-            }
-        }
-
+                
         std::sort(neighbors.begin(), neighbors.end(), [&](const std::string& a, const std::string& b) 
         {
             return countUnvisitedNeighbors(g, a, visited) < countUnvisitedNeighbors(g, b, visited);
         });
 
         for (const auto& next : neighbors) 
+        {
             if (dfs(next)) return true;
+        }
 
         visited.erase(current);
         path.pop_back();
@@ -88,13 +85,7 @@ int main()
 
     std::vector<std::string> path = findKnightTour(chessboard, "1_1");
 
-    for (const auto& elem : path)
-    {
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-
-    chessboard.createDotFile();
+    chessboard.createDotFile(150, 100, false);
 
     return 0;
 }

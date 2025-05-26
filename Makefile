@@ -20,8 +20,9 @@ main.o: main.cpp headers/graph.hpp headers/vertex.hpp
 # --- Cleaning ---
 clean:
 	rm -f main $(wildcard *.o) $(wildcard headers/*.o) graph.dot mygraph.png
-	$(MAKE) -C problems/streetIntersectionProblem clean
-	$(MAKE) -C problems/theKnightsTourProblem clean
+	$(MAKE) -C problems/streetIntersection clean
+	$(MAKE) -C problems/theKnightsTour clean
+	$(MAKE) -C problems/wordLadder clean
 
 # --- Run and plot ---
 plot: main
@@ -42,8 +43,10 @@ test_graph:
 
 # --- Subprojects ---
 knightproblem:
-	$(MAKE) -C problems/theKnightsTourProblem plot
-
+	$(MAKE) -C problems/theKnightsTour plot
 
 streetproblem:
-	$(MAKE) -C problems/streetIntersectionProblem plot
+	$(MAKE) -C problems/streetIntersection plot
+
+ladderproblem:
+	$(MAKE) -C problems/wordLadder plot

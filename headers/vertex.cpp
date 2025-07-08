@@ -7,8 +7,8 @@ vertex::vertex(const std::string &lname)
 
 vertex::vertex(const std::string &lname, const int lvalue)
 {
-    name = name;
-    value = value;
+    name = lname;
+    value = lvalue;
 }
 
 bool vertex::operator==(const vertex &v) const

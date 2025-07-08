@@ -12,9 +12,9 @@
 class vertex
 {
 private:
-    std::unordered_map<std::string, int> _neighbors {};
-    std::string _name {};
-    int _value {DEFAULT_VERTEX_VALUE};
+    std::unordered_map<std::string, int> neighbors {};
+    std::string name {};
+    int value {DEFAULT_VERTEX_VALUE};
     
 public:
     vertex() = default;

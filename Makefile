@@ -47,6 +47,3 @@ knightproblem:
 
 streetproblem:
 	$(MAKE) -C problems/streetIntersection plot
-
-ladderproblem:
-	$(MAKE) -C problems/wordLadder plot

@@ -11,7 +11,7 @@
 class graph
 {
 private:
-    std::unordered_map<std::string, vertex> _vertexes;
+    std::unordered_map<std::string, vertex> vertexes;
     
 public:
     graph() = default;

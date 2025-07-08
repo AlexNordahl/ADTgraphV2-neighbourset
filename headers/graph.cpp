@@ -8,58 +8,58 @@ graph::graph(std::initializer_list<std::string> list)
 
 void graph::addVertex(std::string name)
 {
-    if (_vertexes.contains(name))
+    if (vertexes.contains(name))
         throw std::invalid_argument("Error: vertex already exists");
     
-    _vertexes[name] = vertex(name);
+    vertexes[name] = vertex(name);
 }
 
 void graph::removeVertex(std::string name)
 {
-    if (!_vertexes.contains(name))
+    if (!vertexes.contains(name))
         throw std::invalid_argument("Error: vertex doesn't exist");
     
-    _vertexes.erase(name);
+    vertexes.erase(name);
 }
 
 void graph::setVertexValue(std::string name, int value)
 {
-    if (!_vertexes.contains(name))
+    if (!vertexes.contains(name))
         throw std::invalid_argument("Error: vertex doesn't exist");
 
-    _vertexes[name].setValue(value);
+    vertexes[name].setValue(value);
 }
 
 int graph::getVertexValue(std::string name)
 {
-    if (!_vertexes.contains(name))
+    if (!vertexes.contains(name))
         throw std::invalid_argument("Error: vertex doesn't exist");
 
-    return _vertexes[name].getValue();
+    return vertexes[name].getValue();
 }
 
 void graph::addEdge(std::string name_x, std::string name_y)
 {
-    if (!_vertexes.contains(name_x) or !_vertexes.contains(name_y))
+    if (!vertexes.contains(name_x) or !vertexes.contains(name_y))
         throw std::invalid_argument("Error: vertex doesn't exist");
 
-    _vertexes[name_x].addNeighbor(name_y);
+    vertexes[name_x].addNeighbor(name_y);
 }
 
 void graph::removeEdge(std::string name_x, std::string name_y)
 {
-    if (!_vertexes.contains(name_x) or !_vertexes.contains(name_y))
+    if (!vertexes.contains(name_x) or !vertexes.contains(name_y))
         throw std::invalid_argument("Error: vertex doesn't exist");
 
-    _vertexes[name_x].removeNeighbor(name_y);
+    vertexes[name_x].removeNeighbor(name_y);
 }
 
 void graph::setEdgeValue(std::string name_x, std::string name_y, int value)
 {
-    if (!_vertexes.contains(name_x) or !_vertexes.contains(name_y))
+    if (!vertexes.contains(name_x) or !vertexes.contains(name_y))
         throw std::invalid_argument("Error: vertex doesn't exist");
     
-    for (auto& pair : _vertexes)
+    for (auto& pair : vertexes)
     {
         if (pair.first == name_x)
             pair.second.setEdgeValue(name_y, value);
@@ -68,20 +68,20 @@ void graph::setEdgeValue(std::string name_x, std::string name_y, int value)
 
 int graph::getEdgeValue(std::string name_x, std::string name_y)
 {
-    if (!_vertexes.contains(name_x) or !_vertexes.contains(name_y))
+    if (!vertexes.contains(name_x) or !vertexes.contains(name_y))
         throw std::invalid_argument("Error: vertex doesn't exist");
 
-    return _vertexes[name_x].getEdgeValue(name_y);
+    return vertexes[name_x].getEdgeValue(name_y);
 }
 
 bool graph::adjacent(std::string name_x, std::string name_y)
 {
-    return _vertexes[name_x].hasNeighbor(name_y) or _vertexes[name_y].hasNeighbor(name_x);
+    return vertexes[name_x].hasNeighbor(name_y) or vertexes[name_y].hasNeighbor(name_x);
 }
 
 std::vector<std::string> graph::neighbors(std::string x)
 {
-    std::unordered_map nb = _vertexes[x].getNeighbors();
+    std::unordered_map nb = vertexes[x].getNeighbors();
     std::vector<std::string> result;
 
     for (auto& pair : nb)
@@ -94,12 +94,12 @@ std::vector<std::string> graph::neighbors(std::string x)
 
 bool graph::empty()
 {
-    return _vertexes.empty();
+    return vertexes.empty();
 }
 
 void graph::printVertexes()
 {
-    for (auto name_vertex_pair : _vertexes)
+    for (auto name_vertex_pair : vertexes)
     {
         std::cout << name_vertex_pair.first << ": " << name_vertex_pair.second.strNeighbors() << std::endl;
     }
@@ -115,7 +115,7 @@ void graph::createDotFile(int size, int dpi, bool weighted)
 
     std::set<std::pair<std::string, std::string>> addedEdges;
 
-    for (auto& pair : _vertexes)
+    for (auto& pair : vertexes)
     {
         for (auto& n : pair.second.getNeighbors())
         {
@@ -169,7 +169,7 @@ std::vector<std::string> graph::getAllVertices()
 {
     std::vector<std::string> result;
 
-    for (const auto& pair : _vertexes)
+    for (const auto& pair : vertexes)
     {
         result.push_back(pair.first);
     }

@@ -1,89 +1,89 @@
 #include "vertex.hpp"
 
-vertex::vertex(const std::string &name)
+vertex::vertex(const std::string &lname)
 {
-    _name = name;
+    name = lname;
 }
 
-vertex::vertex(const std::string &name, const int value)
+vertex::vertex(const std::string &lname, const int lvalue)
 {
-    _name = name;
-    _value = value;
+    name = name;
+    value = value;
 }
 
 bool vertex::operator==(const vertex &v) const
 {
-    return _name == v._name;
+    return name == v.name;
 }
 
 bool vertex::empty()
 {
-    return _name == "" and _value == DEFAULT_VERTEX_VALUE and _neighbors.empty();
+    return name == "" and value == DEFAULT_VERTEX_VALUE and neighbors.empty();
 }
 
 bool vertex::hasNeighbors()
 {
-    return !_neighbors.empty();
+    return !neighbors.empty();
 }
 
 bool vertex::hasNeighbor(std::string n)
 {
-    return _neighbors.contains(n);
+    return neighbors.contains(n);
 }
 
 void vertex::addNeighbor(std::string n)
 {
-    if (_name == n)
+    if (name == n)
         throw std::invalid_argument("Error: vertex cannot be neighbor to itself");
 
-    _neighbors[n] = DEFAULT_EDGE_VALUE;
+    neighbors[n] = DEFAULT_EDGE_VALUE;
 }
 
 void vertex::removeNeighbor(std::string n)
 {
-    if (!_neighbors.contains(n))
+    if (!neighbors.contains(n))
         throw std::invalid_argument("Error: neighbor does not exist");
 
-    _neighbors.erase(n);
+    neighbors.erase(n);
 }
 
 void vertex::setValue(const int v)
 {
-    _value = v;
+    value = v;
 }
 
 int vertex::getValue() const
 {
-    return _value;
+    return value;
 }
 
 void vertex::setEdgeValue(std::string name, const int v)
 {
-    _neighbors[name] = v;
+    neighbors[name] = v;
 }
 
 int vertex::getEdgeValue(std::string name)
 {
-    return _neighbors[name];
+    return neighbors[name];
 }
 
 std::string vertex::getName() const
 {
-    return _name;
+    return name;
 }
 
 std::unordered_map<std::string, int> vertex::getNeighbors()
 {
-    return _neighbors;
+    return neighbors;
 }
 
 std::string vertex::strNeighbors()
 {
     std::string result = "{ ";
-    for (auto it = _neighbors.begin(); it != _neighbors.end(); ++it)
+    for (auto it = neighbors.begin(); it != neighbors.end(); ++it)
     {
         result += it->first + ": " + std::to_string(it->second);
-        if (std::next(it) != _neighbors.end()) {
+        if (std::next(it) != neighbors.end()) {
             result += ", ";
         }
     }
